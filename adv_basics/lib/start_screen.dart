@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key});
+
+  @override
+  Widget build(context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            'assets/images/quiz-logo.png',
+            width: 300,
+          ),
+          const SizedBox(height: 80),
+          const Text(
+            'Learn FLutter the fun way!',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+          const SizedBox(height: 20),
+          OutlinedButton(
+            onPressed: () {},
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: const LinearBorder(
+                  start: LinearBorderEdge(),
+                  end: LinearBorderEdge(),
+                  top: LinearBorderEdge(),
+                  bottom: LinearBorderEdge()
+                  ),
+              side: const BorderSide(width: 4),
+            ),
+            child: const Text('Start Quiz'),
+          ),
+        ],
+      ),
+    );
+  }
+}
