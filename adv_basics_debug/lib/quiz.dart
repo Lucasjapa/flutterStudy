@@ -36,6 +36,8 @@ class _QuizState extends State<Quiz> {
 
   void restartQuiz() {
     setState(() {
+      // Correções para testar o debug
+      _selectedAnswers = [];
       _activeScreen = 'questions-screen';
     });
   }
