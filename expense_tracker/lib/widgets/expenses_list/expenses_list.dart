@@ -4,11 +4,13 @@ import '../../models/expense.dart';
 
 class ExpensesList extends StatelessWidget {
   const ExpensesList(
-    this.expenses, {
+    this.expenses,
+    this.onRemoveExpense, {
     super.key,
   });
 
   final List<Expense> expenses;
+  final void Function(Expense expense) onRemoveExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,13 @@ class ExpensesList extends StatelessWidget {
     // visualizados, eles vão sendo instanciados.
     return ListView.builder(
       itemCount: expenses.length,
-      itemBuilder: (ctx, index) => ExpenseItem(expenses[index]),
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        onDismissed: (direction) {
+          onRemoveExpense(expenses[index]);
+        },
+        child: ExpenseItem(expenses[index]),
+      ),
     );
   }
 }
