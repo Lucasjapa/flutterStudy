@@ -1,5 +1,6 @@
 import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
@@ -12,6 +13,13 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // Serve para garantir que o bloqueio de direção da tela e a execução do
+  // app funcionem como esperado.
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   // Serve para bloquear a mudança de direção da tela, fazendo funcionar em um único formato.
+  //   DeviceOrientation.portraitUp,
+  // ]).then((fn) => {
   runApp(
     MaterialApp(
       localizationsDelegates: const [
@@ -66,4 +74,5 @@ void main() {
       home: const Expenses(),
     ),
   );
+  // });
 }
