@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals/data/dummy_data.dart';
-import 'package:meals/models/meal.dart';
 import 'package:meals/providers/favorites_provider.dart';
+import 'package:meals/providers/filters_provider.dart';
 import 'package:meals/providers/meals_provider.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filters.dart';
@@ -28,7 +26,6 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
-  Map<Filter, bool> _selectedFilters = kInitialFilters;
 
   void _selectPage(int index) {
     setState(() {
@@ -39,29 +36,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _setScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == 'filters') {
-      final result = await Navigator.of(context).push<Map<Filter, bool>>(
+      await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
-          builder: (ctx) => FiltersScreen(
-            currentFilters: _selectedFilters,
-          ),
+          builder: (ctx) => const FiltersScreen(),
         ),
       );
-
-      setState(() {
-        _selectedFilters = result ?? kInitialFilters;
-      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final meals = ref.watch(mealsProvider);
+    final activeFilters = ref.watch(filtersProvider);;
     final availableMeals = meals
         .where((meal) =>
-            (!_selectedFilters[Filter.glutenFree]! || meal.isGlutenFree) &&
-            (!_selectedFilters[Filter.lactoseFree]! || meal.isLactoseFree) &&
-            (!_selectedFilters[Filter.vegetarian]! || meal.isVegetarian) &&
-            (!_selectedFilters[Filter.vegan]! || meal.isVegan))
+            (!activeFilters[Filter.glutenFree]! || meal.isGlutenFree) &&
+            (!activeFilters[Filter.lactoseFree]! || meal.isLactoseFree) &&
+            (!activeFilters[Filter.vegetarian]! || meal.isVegetarian) &&
+            (!activeFilters[Filter.vegan]! || meal.isVegan))
         .toList();
 
     // final availableMeals = dummyMeals.where((meal) {
