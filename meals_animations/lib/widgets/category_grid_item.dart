@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:meals/models/category.dart';
+import '../models/category.dart';
+
 
 class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem({
